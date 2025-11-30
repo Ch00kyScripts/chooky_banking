@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Bancario Corporativo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="banking-container" id="bankingUI" style="display: none;">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-university"></i>
+                <h1>Banco Central SP⚡RP</h1>
+            </div>
+            <div class="header-actions">
+                <button class="btn-icon" onclick="refreshData()">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <button class="btn-icon close-btn" onclick="closeUI()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="nav-menu">
+                    <button class="nav-item active" onclick="showSection('accounts')">
+                        <i class="fas fa-users"></i>
+                        <span>Cuentas</span>
+                    </button>
+                    <button class="nav-item" onclick="showSection('transactions')">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Transacciones</span>
+                    </button>
+                    <button class="nav-item" onclick="showSection('loans')">
+                        <i class="fas fa-hand-holding-usd"></i>
+                        <span>Préstamos</span>
+                    </button>
+                    <button class="nav-item" onclick="showSection('settings')">
+                        <i class="fas fa-cog"></i>
+                        <span>Configuración</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="content">
+                <!-- Sección de Cuentas -->
+                <div id="accounts-section" class="section active">
+                    <div class="section-header">
+                        <h2><i class="fas fa-users"></i> Gestión de Cuentas</h2>
+                        <div class="search-bar">
+                            <input type="text" id="searchInput" placeholder="Buscar Ciudadano..." oninput="searchPlayer()">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div>
+
+                    <div class="accounts-grid" id="accountsGrid">
+                        <!-- Las cuentas se cargarán dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Sección de Transacciones -->
+                <div id="transactions-section" class="section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-exchange-alt"></i> Transacciones Recientes</h2>
+                    </div>
+
+                    <div class="transaction-form">
+                        <h3>Realizar Transacción</h3>
+                        <div class="form-group">
+                            <label>ID para Transacción:</label>
+                            <input type="number" id="transactionTargetId" placeholder="Ingresa el ID para Transacción:">
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo:</label>
+                            <select id="transactionType">
+                                <option value="withdraw">Quitar Dinero de la cuenta del Banco y darsela al Ciudadano</option>
+                                <option value="deposit">Quitar Dinero de la cuenta del Ciudadano y pasarla al Banco</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Cantidad:</label>
+                            <input type="number" id="transactionAmount" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Razón:</label>
+                            <input type="text" id="transactionReason" placeholder="Motivo de la transacción">
+                        </div>
+                        <button class="btn-primary" onclick="executeTransaction()">
+                            <i class="fas fa-paper-plane"></i> Ejecutar Transacción
+                        </button>
+                    </div>
+
+                    <div class="transactions-list" id="transactionsList">
+                        <!-- Las transacciones se cargarán dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Sección de Préstamos -->
+                <div id="loans-section" class="section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-hand-holding-usd"></i> Gestión de Préstamos</h2>
+                    </div>
+
+                    <div class="loan-form">
+                        <h3>Otorgar Préstamo</h3>
+                        <div class="form-group">
+                            <label>ID para Transacción:</label>
+                            <input type="number" id="loanTargetId" placeholder="Ingresa el ID para Transacción:">
+                        </div>
+                        <div class="form-group">
+                            <label>Cantidad:</label>
+                            <input type="number" id="loanAmount" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Duración (días):</label>
+                            <input type="number" id="loanDuration" value="30" placeholder="30">
+                        </div>
+                        <div class="form-group">
+                            <label>Interés (%):</label>
+                            <input type="number" id="loanInterest" value="5" step="0.1" placeholder="5">
+                        </div>
+                        <button class="btn-primary" onclick="giveLoan()">
+                            <i class="fas fa-hand-holding-usd"></i> Otorgar Préstamo
+                        </button>
+                    </div>
+
+                    <div class="loans-list" id="loansList">
+                        <!-- Los préstamos se cargarán dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Sección de Configuración -->
+                <div id="settings-section" class="section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-cog"></i> Configuración</h2>
+                    </div>
+
+                    <div class="settings-grid">
+                        <div class="setting-card">
+                            <h3><i class="fas fa-info-circle"></i> Información del Sistema</h3>
+                            <div class="setting-item">
+                                <span>Versión:</span>
+                                <span>1.0.0</span>
+                            </div>
+                            <div class="setting-item">
+                                <span>Job Requerido:</span>
+                                <span>bankero</span>
+                            </div>
+                            <div class="setting-item">
+                                <span>Script by:</span>
+                                <span>Ch00kyScripts: https://github.com/Ch00kyScripts </span>
+                            </div>
+                        </div>
+
+                        <div class="setting-card">
+                            <h3><i class="fas fa-shield-alt"></i> Límites del Sistema</h3>
+                            <div class="setting-item">
+                                <span>Retiro Máximo:</span>
+                                <span>$1,000,000</span>
+                            </div>
+                            <div class="setting-item">
+                                <span>Depósito Máximo:</span>
+                                <span>$1,000,000</span>
+                            </div>
+                            <div class="setting-item">
+                                <span>Préstamo Máximo:</span>
+                                <span>$500,000</span>
+                            </div>
+                            <div class="setting-item">
+                                <span>Interés por Defecto:</span>
+                                <span>5%</span>
+                            </div>
+                        </div>
+
+                        <div class="setting-card">
+                            <h3><i class="fas fa-history"></i> Logs del Sistema</h3>
+                            <div class="setting-item">
+                                <span>Registro Activo:</span>
+                                <span class="status-active">Sí</span>
+                            </div>
+                            <div class="setting-item">
+                                <span>Canal Discord:</span>
+                                <span>banking</span>
+                            </div>
+                            <button class="btn-secondary" onclick="viewLogs()">
+                                <i class="fas fa-list"></i> Ver Logs
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-triangle"></i> Confirmar Transacción</h3>
+                <button class="btn-icon" onclick="closeConfirmation()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Estás a punto de realizar una transacción grande. ¿Deseas continuar?</p>
+                <div class="confirmation-details" id="confirmationDetails">
+                    <!-- Los detalles se llenarán dinámicamente -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeConfirmation()">Cancelar</button>
+                <button class="btn-primary" id="confirmButton">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
