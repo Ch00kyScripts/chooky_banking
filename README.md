@@ -3,7 +3,7 @@
 
 ## Descripción
 
-Sistema de banca avanzado para ESX Legacy que permite a jugadores con el job "bankero" gestionar cuentas bancarias, realizar transacciones y otorgar préstamos a otros jugadores.
+Sistema de banca avanzado para ESX Legacy que permite a jugadores con el job adecuado gestionar cuentas bancarias, realizar transacciones y otorgar préstamos a otros jugadores.
 
 ## Características
 
