@@ -5,6 +5,9 @@
 
 Sistema de banca avanzado para ESX Legacy que permite a jugadores con el job adecuado gestionar cuentas bancarias, realizar transacciones y otorgar préstamos a otros jugadores.
 
+
+<img width="1024" height="1536" alt="12f96022-a778-4ea4-b377-99113f0cbfa6" src="https://github.com/user-attachments/assets/d03227d3-c729-4d59-8613-acdcd880ea07" />
+
 ## Características
 
 - ✅ **Gestión de Cuentas**: Ver saldos de todos los jugadores
