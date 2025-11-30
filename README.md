@@ -52,20 +52,6 @@ Agrega a tu `server.cfg`:
 ensure esx_banking
 ```
 
-### 5. Configuración del Job
-
-Asegúrate de tener el job "bankero" configurado en tu base de datos ESX:
-
-```sql
-INSERT INTO `jobs` (`name`, `label`) VALUES ('bankero', 'Banquero');
-
-INSERT INTO `job_grades` (`job_name`, `grade`, `name`, `label`, `salary`, `skin_male`, `skin_female`) VALUES
-('bankero', 0, 'employee', 'Empleado', 500, '{}', '{}'),
-('bankero', 1, 'cashier', 'Cajero', 800, '{}', '{}'),
-('bankero', 2, 'manager', 'Gerente', 1200, '{}', '{}'),
-('bankero', 3, 'director', 'Director', 2000, '{}', '{}');
-```
-
 ## Configuración
 
 Edita el archivo `config.lua` para personalizar el sistema:
